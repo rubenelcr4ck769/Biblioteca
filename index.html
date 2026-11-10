@@ -6,74 +6,6 @@
   <title>BIBLIOTECA ESTUDIANTIL</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* --- PANTALLA DE INTRODUCCIÓN --- */
-    #intro-screen {
-      position: fixed;
-      inset: 0;
-      background: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease;
-    }
-    #intro-screen.ocultar { opacity: 0; pointer-events: none; }
-    .intro-logo { width: 90vw; max-width: 700px; }
-    .intro-logo svg { width: 100%; height: auto; }
-    .linea-sombra {
-      fill: none;
-      stroke: rgba(0,140,80,0.12);
-      stroke-width: 38;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 1300;
-      stroke-dashoffset: 1300;
-      animation: dibujar 2s cubic-bezier(0.77,0,0.18,1) forwards;
-    }
-    .linea-principal {
-      fill: none;
-      stroke: url(#grad-conalep);
-      stroke-width: 26;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 1300;
-      stroke-dashoffset: 1300;
-      animation: dibujar 2s cubic-bezier(0.77,0,0.18,1) forwards;
-    }
-    .linea-top    { animation-delay: 0.1s; }
-    .linea-bottom { animation-delay: 0.45s; }
-
-    .intro-titulo {
-      font-family: 'Segoe UI', 'Arial Black', sans-serif;
-      font-size: clamp(28px, 6vw, 56px);
-      font-weight: 900;
-      letter-spacing: 10px;
-      color: #00466f;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(22px);
-      animation: aparecer 0.9s ease forwards 2.3s;
-    }
-    .intro-subtitulo {
-      font-family: 'Segoe UI', sans-serif;
-      font-size: clamp(11px, 2vw, 17px);
-      font-weight: 600;
-      letter-spacing: 6px;
-      color: #005c99;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(14px);
-      animation: aparecer 0.9s ease forwards 2.6s;
-    }
-    .intro-contenido {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-    @keyframes dibujar { to { stroke-dashoffset: 0; } }
-    @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
-
     /* --- ESTILOS GENERALES --- */
     :root {
       --azul-principal: #1464af;
@@ -110,8 +42,6 @@
       overflow: hidden;
       box-shadow: var(--sombra);
       border: 1px solid rgba(255, 255, 255, 0.6);
-      opacity: 0;
-      transform: translateY(20px);
     }
 
     .header {
@@ -276,28 +206,6 @@
 </head>
 <body>
 
-  <div id="intro-screen">
-    <div class="intro-contenido">
-      <div class="intro-logo">
-        <svg viewBox="-110 -90 540 380" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="grad-conalep" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#00c87a"/>
-              <stop offset="50%"  stop-color="#009955"/>
-              <stop offset="100%" stop-color="#006633"/>
-            </linearGradient>
-          </defs>
-          <path class="linea-sombra linea-top"       d="M-110 55  Q160 -130 430 75"/>
-          <path class="linea-sombra linea-bottom"    d="M-110 185 Q165  330 430 165"/>
-          <path class="linea-principal linea-top"    d="M-110 55  Q160 -130 430 75"/>
-          <path class="linea-principal linea-bottom" d="M-110 185 Q165  330 430 165"/>
-        </svg>
-      </div>
-      <div class="intro-titulo">ICESV</div>
-      <div class="intro-subtitulo">TUXPAN</div>
-    </div>
-  </div>
-
   <div class="container" id="main-container">
     <div class="header">
       <div class="logo">
@@ -313,22 +221,7 @@
   </div>
 
   <script>
-    // 1. Pantalla de introducción
-    setTimeout(function () {
-      const intro = document.getElementById('intro-screen');
-      if (intro) {
-        intro.classList.add('ocultar');
-        setTimeout(function () {
-          intro.remove();
-          const container = document.getElementById('main-container');
-          container.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-          container.style.opacity = '1';
-          container.style.transform = 'translateY(0)';
-        }, 800);
-      }
-    }, 3500);
-
-    // 2. Lista de PDFs (rutas relativas a index.html, SIN "../")
+    // Lista de PDFs (rutas relativas a index.html, SIN "../")
     // Los nombres deben coincidir EXACTAMENTE con los de la carpeta LIBROS
     // (mayúsculas, guiones y extensión incluidos).
     const pdfFiles = [
@@ -347,7 +240,7 @@
     const list = document.getElementById("pdf-list");
     document.getElementById("file-count").textContent = pdfFiles.length;
 
-    // 3. Renderizado de documentos
+    // Renderizado de documentos
     pdfFiles.forEach((file) => {
       const li = document.createElement("li");
       li.className = "pdf-item";
